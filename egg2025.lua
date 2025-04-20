@@ -2,20 +2,27 @@ local folderName = "EggLocations2025"
 local eggNames = {
     "PrisonEgg", "MuseumEgg", "DriveThruEgg", "RacewayEgg", "BridgeEgg",
     "SpawnEgg", "StageEgg", "GasStationEgg", "CampsiteEgg", "CafeEgg",
-    "ShopiezEgg", "ObbyEgg", "ExitEgg", "CarWashEgg", "StatueEgg"
+    "ShopiezEgg", "ObbyEgg", "ExitEgg", "CarWashEgg", "StatuesEgg"
 }
 
 local Players = game:GetService("Players")
 local VirtualInput = game:GetService("VirtualInputManager")
+local RunService = game:GetService("RunService")
+
 local player = Players.LocalPlayer
 local camera = workspace.CurrentCamera
 
 local char = player.Character or player.CharacterAdded:Wait()
 local hrp = char:WaitForChild("HumanoidRootPart")
 
+local originalCFrame = hrp.CFrame
+local originalCameraCFrame = camera.CFrame
+
 player.CameraMode = Enum.CameraMode.LockFirstPerson
 player.CameraMinZoomDistance = 0.5
 player.CameraMaxZoomDistance = 0.5
+
+local lockCamera = true
 
 local function teleportTo(part)
     hrp.CFrame = part.CFrame + Vector3.new(0, 5, 0)
@@ -44,11 +51,17 @@ if not folder or not folder:IsA("Folder") then
     return
 end
 
+-- Camera locking loop
+local camConn = RunService.RenderStepped:Connect(function()
+    if lockCamera then
+        lookDown()
+    end
+end)
+
 for _, name in ipairs(eggNames) do
     local part = folder:FindFirstChild(name)
     if part and part:IsA("BasePart") then
         teleportTo(part)
-        lookDown()
         task.wait(0.3)
         pressE()
         task.wait(1)
@@ -56,6 +69,14 @@ for _, name in ipairs(eggNames) do
         warn("Missing or invalid egg: " .. name)
     end
 end
+
+task.wait(1)
+
+lockCamera = false
+camConn:Disconnect()
+
+hrp.CFrame = originalCFrame
+camera.CFrame = originalCameraCFrame
 
 player.CameraMode = Enum.CameraMode.Classic
 player.CameraMinZoomDistance = 0.1
