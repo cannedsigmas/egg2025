@@ -62,9 +62,9 @@ for _, name in ipairs(eggNames) do
     local part = folder:FindFirstChild(name)
     if part and part:IsA("BasePart") then
         teleportTo(part)
-        task.wait(0.3)
+        task.wait(0.05)
         pressE()
-        task.wait(1)
+        task.wait(0.04)
     else
         warn("Missing or invalid egg: " .. name)
     end
