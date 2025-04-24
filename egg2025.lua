@@ -1,4 +1,43 @@
 local folderName = "EggLocations2025"
+-- Notification GUI
+local StarterGui = game:GetService("StarterGui")
+
+local function showNotification()
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "HeirHavocNotification"
+    screenGui.ResetOnSpawn = false
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Parent = screenGui
+    textLabel.AnchorPoint = Vector2.new(1, 1)
+    textLabel.Position = UDim2.new(1, -10, 1, -10)
+    textLabel.Size = UDim2.new(0, 200, 0, 50)
+    textLabel.BackgroundTransparency = 0.2
+    textLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textLabel.Text = "made by heirhavoc"
+    textLabel.Font = Enum.Font.GothamBold
+    textLabel.TextSize = 18
+    textLabel.BorderSizePixel = 0
+    textLabel.TextWrapped = true
+
+    screenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+
+    -- Optional: Fade out after a few seconds
+    task.delay(3, function()
+        for i = 1, 10 do
+            textLabel.TextTransparency = i / 10
+            textLabel.BackgroundTransparency = 0.2 + (i / 10)
+            task.wait(0.05)
+        end
+        screenGui:Destroy()
+    end)
+end
+
+showNotification()
+
+-- Rest of your script below...
+
 local eggNames = {
     "PrisonEgg", "MuseumEgg", "DriveThruEgg", "RacewayEgg", "BridgeEgg",
     "SpawnEgg", "StageEgg", "GasStationEgg", "CampsiteEgg", "CafeEgg",
