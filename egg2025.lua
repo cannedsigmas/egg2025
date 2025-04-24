@@ -1,3 +1,9 @@
+--[[
+  Code by HeirHavoc
+  Licensed under MIT License
+  Please give proper credit if used.
+]]
+
 local folderName = "EggLocations2025"
 
 local StarterGui = game:GetService("StarterGui")
