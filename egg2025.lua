@@ -1,5 +1,5 @@
 local folderName = "EggLocations2025"
--- Notification GUI
+
 local StarterGui = game:GetService("StarterGui")
 
 local function showNotification()
@@ -23,7 +23,6 @@ local function showNotification()
 
     screenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
 
-    -- Optional: Fade out after a few seconds
     task.delay(3, function()
         for i = 1, 10 do
             textLabel.TextTransparency = i / 10
@@ -36,7 +35,7 @@ end
 
 showNotification()
 
--- Rest of your script below...
+
 
 local eggNames = {
     "PrisonEgg", "MuseumEgg", "DriveThruEgg", "RacewayEgg", "BridgeEgg",
